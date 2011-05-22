@@ -2,7 +2,7 @@
 <html>
 	<head>
 	<!-- Change this if you want to allow scaling -->
-	<meta name="viewport" content="width=default-width; user-scalable=no" />
+	<meta name="viewport" content="width=480, user-scalable=no, initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5"/> 
 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
@@ -138,11 +138,12 @@
 		var paths = navigator.fileMgr.getRootPaths();
 		// $('#alert').append(JSON.stringify(paths));
 		var docpath = paths[0]; 
-		var docpatht = encodeURI(docpath) + '/' + navigator.audio.src.substr('documents://'.length);;
+		var docpatht = encodeURI(docpath) + '/' + navigator.audio.src.substr('documents://'.length);
 		
 		
 		$('#alert').append(docpatht);
-		window.plugins.fileUploader.uploadByUri('http://10.11.254.246:8000/upload', 'file://' + docpatht, {foo: 'bar'}, 'myrecording', 'sound.aif', 'audio/pcm', 
+		window.plugins.fileUploader
+		.upload('http://10.11.254.246:8000/upload', docpatht, {}, 'upload', navigator.audio.src.substr('documents://'.length), 'audio/pcm', 
 			function(result) {
 				console.log('Done: ' + result);
 			}, 
@@ -154,7 +155,15 @@
 				console.log('Uploaded  ' + percent);
 			}
 		);
-
+		// (server, 
+		// file, 
+		// params, 
+		// fileKey, 
+		// fileName, 
+		// mimeType, 
+		// success, 
+		// fail, 
+		// progress)
 
 
 		// var URI = navigator.audio.src.substr('documents://'.length);
@@ -238,7 +247,8 @@
 	</script>
   </head>
   <body onload="onBodyLoad()">
-  	<h1>Soundscape</h1>
+  	<h1 id="soundscape_header">Soundscape</h1>
+	<div id="subheading"></div>
 	<div id="alert">
 	</div>
 	<table style="width: 100%" class="grid">
@@ -247,6 +257,7 @@
 	     <td><input type="image" id="play-button" src="play.png" onclick="return false;" ontouchstart="play(); return false;" ontouchend="return false;"></td>
 	     <td><input type="image" id="cd-button" src="help.png" onclick="return false;" ontouchstart="deleteAudio(); return false;" ontouchend="return false;"></td>
 	  </tr>
-	</table> 
+	</table>
+	<div id="bottombar"></div>
   </body>
 </html>
