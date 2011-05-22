@@ -156,14 +156,26 @@ soundscape.show.thumbs_up = function(){
 	$('#tag_song').attr('class','').addClass('thumbs_up');
 	$('#venues_list').hide()
 	$('#tag_song').show()
+	var t = setTimeout('soundscape.show.song()',800);
 }
 soundscape.show.thumbs_down = function(){
 	$('#subheading').attr('class','').addClass('tag_song');
 	$('#tag_song').attr('class','').addClass('thumbs_down');
 	$('#venues_list').hide()
 	$('#tag_song').show()
+	var t = setTimeout('soundscape.show.song()',800);
 }
 
+soundscape.show.song = function(){
+	$('#tag_song').show()
+	var show_song = function(song){
+		var html = '<li><span class="artist_name">' + song.artist + '</span><br /><span class="song_title">' + song.title + '</span></li>';
+		$('#tag_song ul').empty().append(html);
+		
+	}
+	soundscape.api.get_song(soundscape.billie,show_song)
+	
+}
 
 soundscape.audio = {};
 soundscape.audio.server = 'http://10.11.46.7:3000';

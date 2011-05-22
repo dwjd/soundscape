@@ -38,6 +38,10 @@ h1{
     background-image: url('images/subheading_back.png');
 }
 
+#tag_song ul{
+    padding:0;
+    font-size: 28px;
+}
 #tag_song.thumbs_up ul li .thumbs_down, #tag_song.thumbs_down ul li .thumbs_up{
     display:none;
 }
@@ -98,6 +102,10 @@ h1{
     display:block;
     
 }
+.ajax-loader{
+    margin: 20px;
+    float:right;
+}
 
 #venues_list ul {
     padding:0;
@@ -108,7 +116,7 @@ h1{
     overflow: scroll;
 }
 
-#venues_list ul li {
+ul li {
     list-style: none;
     display: block;
     height: 69px;
@@ -119,16 +127,16 @@ h1{
     background-position: right;
     background-repeat: no-repeat;
 }
-#venues_list ul li.loading{
+ul li.loading{
     background-image:none;
 }
 
-.venue_name {
+.venue_name, .artist_name {
     font-weight:bold;
     display:block;
     line-height: 0.8;
 }
-.venue_address, .venue_distance {
+.venue_address, .venue_distance, .song_title {
     color: #525252;
     padding-top: 10px;
 }
