@@ -119,7 +119,10 @@ soundscape.api.tag_song = function(user_email,like,song,venue,callback){
 soundscape.show = {};
 
 soundscape.show.nearby_venues = function(geo){
-	$('#subheading').removeClass().addClass('search_venue_nearby');
+	$('#tag_song').hide();
+	$('#venues_list').show();
+
+	$('#subheading').attr('class','').addClass('search_venue_nearby');
 	
 	var add_venues = function(venues){
 		$('#venues_list ul').empty().append('<li class="loading">Loading Venues ...</li>');
@@ -133,7 +136,9 @@ soundscape.show.nearby_venues = function(geo){
 	soundscape.api.get_venues('nearby', geo, add_venues);
 }
 soundscape.show.trending_venues = function(geo){
-	$('#subheading').removeClass().addClass('search_venue_best_match');
+	$('#tag_song').hide();
+	$('#venues_list').show();
+	$('#subheading').attr('class','').addClass('search_venue_best_match');
 	var add_venues = function(venues){
 		$('#venues_list ul').empty().append('<li class="loading">Loading Venues ...</li>');
 		var html = ''
@@ -146,7 +151,18 @@ soundscape.show.trending_venues = function(geo){
 	soundscape.api.get_venues('trending', geo, add_venues);
 }
 
-
+soundscape.show.thumbs_up = function(){
+	$('#subheading').attr('class','').addClass('tag_song');
+	$('#tag_song').attr('class','').addClass('thumbs_up');
+	$('#venues_list').hide()
+	$('#tag_song').show()
+}
+soundscape.show.thumbs_down = function(){
+	$('#subheading').attr('class','').addClass('tag_song');
+	$('#tag_song').attr('class','').addClass('thumbs_down');
+	$('#venues_list').hide()
+	$('#tag_song').show()
+}
 
 
 soundscape.audio = {};

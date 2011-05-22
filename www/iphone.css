@@ -22,6 +22,7 @@ h1{
 
 #subheading {
     background-image: url('images/subheading_bg.png');
+    background-repeat: none;
     width: 100%;
     height: 86px;
     display:block;
@@ -33,7 +34,13 @@ h1{
 #subheading.search_venue_best_match {
     background-image: url('images/subheading_venue_best_match.png');
 }
+#subheading.tag_song {
+    background-image: url('images/subheading_back.png');
+}
 
+#tag_song.thumbs_up ul li .thumbs_down, #tag_song.thumbs_down ul li .thumbs_up{
+    display:none;
+}
 
 #bottombar {
     background-image: url('images/bottom_bg.png');
