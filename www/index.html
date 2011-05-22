@@ -8,14 +8,18 @@
 
 	<title>soundscape</title>
 	
+	<link rel="stylesheet" href="iphone.css" type="text/css" />
+	<!-- <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" /> -->
+	<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="reset.css" type="text/css" />
 	<!-- iPad/iPhone specific css below, add after your main css >
 	<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />		
-	<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />		
 	-->
 	<!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
 	<script type="text/javascript" charset="utf-8" src="phonegap.0.9.4.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="RecordingEncoder.js"></script>
-	<script type="text/javascript" src="jquery.1.6.1.js"></script> 
+	<script type="text/javascript" charset="utf-8" src="fileuploader.js"></script>
+	<script type="text/javascript" src="jquery.1.6.1.js"></script>
+	<script type="text/javascript" src="soundscape.js"></script>
 	<script type="text/javascript" charset="utf-8">
 
 
@@ -40,6 +44,10 @@
 		// navigator.audio = new Media(null,captureSuccess,captureError);
 
 	}
+	
+	
+	
+	
 	
 	function record()
 	    {        
@@ -121,8 +129,59 @@
 	        $('#record-button').attr('src','record.png');
 	        navigator.notification.activityStop();
 	        $('#cd-button').attr('src','cd_remove.png');
+
 	navigator.audio.stopAudioRecord();
+	upload();
 	}
+
+    function upload() {
+		var paths = navigator.fileMgr.getRootPaths();
+		// $('#alert').append(JSON.stringify(paths));
+		var docpath = paths[0]; 
+		var docpatht = encodeURI(docpath) + '/' + navigator.audio.src.substr('documents://'.length);;
+		
+		
+		$('#alert').append(docpatht);
+		window.plugins.fileUploader.uploadByUri('http://10.11.254.246:8000/upload', 'file://' + docpatht, {foo: 'bar'}, 'myrecording', 'sound.aif', 'audio/pcm', 
+			function(result) {
+				console.log('Done: ' + result);
+			}, 
+			function(result) {
+				console.log("Error: " + result);
+			}, 
+			function(loaded, total) {
+				var percent = 100 / total * loaded;
+				console.log('Uploaded  ' + percent);
+			}
+		);
+
+
+
+		// var URI = navigator.audio.src.substr('documents://'.length);
+		// $('#alert').append('upload <br/>')
+		// 
+		//         var options = new FileUploadOptions();
+		//         options.fileKey="file";
+		//         options.fileName=URI.substr(URI.lastIndexOf('/')+1);
+		//         options.mimeType="audio/raw";
+		// 
+		//         var params = new Object();
+		//         params.value1 = "test";
+		//         params.value2 = "param";
+		// 
+		//         options.params = params;
+		// 
+		//         var ft = new FileTransfer();
+		// var paths = navigator.fileMgr.getRootPaths(); 
+		//        var docpath = paths[0]; 
+		//        var docpatht = encodeURI(docpath);
+		// $('#alert').append(docpatht)
+		// 
+		//         ft.upload(docpatht, "http://10.11.254.246/upload", function(){alert('win')}, function(){alert('fail')}, options);
+    }
+
+
+
 
 	function playRecord()
 	{
@@ -165,7 +224,9 @@
 	        $('#record-button').attr('src','record.png');
 	        $('#play-button').attr('src','play.png');
 	        $('#cd-button').attr('src','cd_remove.png');
-	    }
+			// $('#alert').append(url);
+	    	upload();
+		}
 
 	    function recording_failure(error)
 	    {
@@ -178,6 +239,8 @@
   </head>
   <body onload="onBodyLoad()">
   	<h1>Soundscape</h1>
+	<div id="alert">
+	</div>
 	<table style="width: 100%" class="grid">
 	   <tr>
 	     <td><input type="image" id="record-button" src="record.png" onclick="return false;" ontouchstart="record(); return false;" ontouchend="return false;"></td>
