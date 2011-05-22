@@ -42,6 +42,20 @@
 	{
 		// do your thing!
 		// navigator.audio = new Media(null,captureSuccess,captureError);
+		
+		soundscape.show.nearby_venues()
+		$('#subheading').bind('click',function(){
+			if($('#subheading').hasClass('search_venue_nearby')){
+				soundscape.show.trending_venues()
+				return;
+			}
+			if($('#subheading').hasClass('search_venue_nearby')){
+				soundscape.show.nearby_venues()
+				return;
+			}
+		});
+		
+		
 
 	}
 	
@@ -268,6 +282,13 @@
 			<li class="loading">Loading Venues ...</li>
 		</ul>
 	</div>
+	<div id="tag_song" style="display:none;">
+		<ul>
+			<li class="loading">Loading Venues ...</li>
+		</ul>
+	</div>
+	
+	
 	<!-- <button onclick="soundscape.geo.get_lat_lon()">geo</button>
 	
 	<table style="width: 100%" class="grid">
