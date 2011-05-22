@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 	<title>soundscape</title>
-	
+	<link rel="stylesheet" href="reset.css" type="text/css" />
 	<link rel="stylesheet" href="iphone.css" type="text/css" />
 	<!-- <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" /> -->
 	<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="reset.css" type="text/css" />
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />		
 	-->
 	<!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
-	<script type="text/javascript" charset="utf-8" src="phonegap.0.9.4.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="phonegap.0.9.5.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="RecordingEncoder.js"></script>
 	<script type="text/javascript" charset="utf-8" src="fileuploader.js"></script>
 	<script type="text/javascript" src="jquery.1.6.1.js"></script>
@@ -151,7 +151,7 @@
 		// alert('upload'),ft.upload('file://' + docpatht, "http://http://10.11.254.246:8000/upload", function(){alert('win')}, function(){alert('fail')}, options);
 
 		window.plugins.fileUploader
-		.upload('http://10.11.254.246:8000/upload', docpatht, {}, 'upload', navigator.audio.src.substr('documents://'.length), 'audio/pcm', 
+		.upload('http://10.11.254.246:8000/upload', docpatht, {}, 'upload', navigator.audio.src.substr('documents://'.length), 'image/jpeg', 
 			function(result) {
 				$('#alert').append(JSON.stringify(result));
 				console.log('Done: ' + result);
@@ -259,20 +259,16 @@
   </head>
   <body onload="onBodyLoad()">
   	<h1 id="soundscape_header">Soundscape</h1>
-	<div id="subheading">
-		<div id="name">
-			
-		</div>
+	<div id="subheading" class="search_venue_nearby">
 	</div>
 	<div id="alert">
 	</div>
 	<div id="venues_list">
 		<ul>
-			<li data-venue-id="342432"><span class="venue_name">Barrage</span><br/><span class="venue_address">401 W 47th St</span><span class="venue_distance">(0.5 mi)</span></li>
-			<li data-venue-id="342433"><span class="venue_name">Barrage</span><br/><span class="venue_address">401 W 47th St</span><span class="venue_distance">(0.5 mi)</span></li>
+			<li class="loading">Loading Venues ...</li>
 		</ul>
 	</div>
-	
+	<!-- <button onclick="soundscape.geo.get_lat_lon()">geo</button>
 	
 	<table style="width: 100%" class="grid">
 	   <tr>
@@ -280,7 +276,7 @@
 	     <td><input type="image" id="play-button" src="play.png" onclick="return false;" ontouchstart="play(); return false;" ontouchend="return false;"></td>
 	     <td><input type="image" id="cd-button" src="help.png" onclick="return false;" ontouchstart="deleteAudio(); return false;" ontouchend="return false;"></td>
 	  </tr>
-	</table>
+	</table> -->
 	<div id="bottombar">
 		<a id="bottom_button_venues" onclick="alert('venues')"></a>
 		<a id="thumbs_up" onclick="alert('thumbs up')"></a>

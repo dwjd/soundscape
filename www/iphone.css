@@ -1,8 +1,11 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
 body {
   background-image: url('images/background.png');
   padding: 0;
   margin: 0;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 #soundscape_header {
@@ -23,6 +26,14 @@ h1{
     height: 86px;
     display:block;
 }
+
+#subheading.search_venue_nearby {
+    background-image: url('images/subheading_venue_best_near.png');
+}
+#subheading.search_venue_best_match {
+    background-image: url('images/subheading_venue_best_match.png');
+}
+
 
 #bottombar {
     background-image: url('images/bottom_bg.png');
@@ -76,9 +87,18 @@ h1{
     right:0;
 }
 
+#show_nearby {
+    display:block;
+    
+}
+
 #venues_list ul {
     padding:0;
     font-size: 28px;
+    display:block;
+    height: 650px;
+    width:100%;
+    overflow: scroll;
 }
 
 #venues_list ul li {
@@ -92,6 +112,10 @@ h1{
     background-position: right;
     background-repeat: no-repeat;
 }
+#venues_list ul li.loading{
+    background-image:none;
+}
+
 .venue_name {
     font-weight:bold;
     display:block;
