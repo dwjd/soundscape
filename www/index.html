@@ -136,18 +136,28 @@
 
     function upload() {
 		var paths = navigator.fileMgr.getRootPaths();
+		alert('upload')
 		// $('#alert').append(JSON.stringify(paths));
 		var docpath = paths[0]; 
 		var docpatht = encodeURI(docpath) + '/' + navigator.audio.src.substr('documents://'.length);
 		
 		
 		$('#alert').append(docpatht);
+
+		// var options = new FileUploadOptions();
+		// options.fileKey = 'file';
+		// options.mimeType="audio/pcm";
+		// var ft = new FileTransfer();
+		// alert('upload'),ft.upload('file://' + docpatht, "http://http://10.11.254.246:8000/upload", function(){alert('win')}, function(){alert('fail')}, options);
+
 		window.plugins.fileUploader
 		.upload('http://10.11.254.246:8000/upload', docpatht, {}, 'upload', navigator.audio.src.substr('documents://'.length), 'audio/pcm', 
 			function(result) {
+				$('#alert').append(JSON.stringify(result));
 				console.log('Done: ' + result);
 			}, 
 			function(result) {
+				$('#alert').append(JSON.stringify(result));
 				console.log("Error: " + result);
 			}, 
 			function(loaded, total) {
@@ -155,6 +165,7 @@
 				console.log('Uploaded  ' + percent);
 			}
 		);
+
 		// (server, 
 		// file, 
 		// params, 
@@ -248,9 +259,21 @@
   </head>
   <body onload="onBodyLoad()">
   	<h1 id="soundscape_header">Soundscape</h1>
-	<div id="subheading"></div>
+	<div id="subheading">
+		<div id="name">
+			
+		</div>
+	</div>
 	<div id="alert">
 	</div>
+	<div id="venues_list">
+		<ul>
+			<li data-venue-id="342432"><span class="venue_name">Barrage</span><br/><span class="venue_address">401 W 47th St</span><span class="venue_distance">(0.5 mi)</span></li>
+			<li data-venue-id="342433"><span class="venue_name">Barrage</span><br/><span class="venue_address">401 W 47th St</span><span class="venue_distance">(0.5 mi)</span></li>
+		</ul>
+	</div>
+	
+	
 	<table style="width: 100%" class="grid">
 	   <tr>
 	     <td><input type="image" id="record-button" src="record.png" onclick="return false;" ontouchstart="record(); return false;" ontouchend="return false;"></td>
@@ -258,6 +281,11 @@
 	     <td><input type="image" id="cd-button" src="help.png" onclick="return false;" ontouchstart="deleteAudio(); return false;" ontouchend="return false;"></td>
 	  </tr>
 	</table>
-	<div id="bottombar"></div>
+	<div id="bottombar">
+		<a id="bottom_button_venues" onclick="alert('venues')"></a>
+		<a id="thumbs_up" onclick="alert('thumbs up')"></a>
+		<a id="thumbs_down" onclick="alert('thumbs down')"></a>
+		<a id="bottom_button_songs" onclick="alert('songs')"></a>
+	</div>
   </body>
 </html>
