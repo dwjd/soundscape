@@ -131,6 +131,10 @@ ul li.loading{
     background-image:none;
 }
 
+li.selected{
+    background-image: url('images/tick.png');
+}
+
 .venue_name, .artist_name {
     font-weight:bold;
     display:block;

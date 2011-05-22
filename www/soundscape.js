@@ -128,8 +128,11 @@ soundscape.show.nearby_venues = function(geo){
 		$('#venues_list ul').empty().append('<li class="loading">Loading Venues ...</li>');
 		var html = ''
 		$(venues).each(function(i,v){
-			html += '<li data-venue-id="' + v._id + '"><span class="venue_name">' + v.name + '</span><br/><span class="venue_address">' + v.category + '</span> <span class="venue_distance">(' + v.distance + 'm)</span></li>';
+			html += '<li class="venue" data-venue-id="' + v._id + '"><span class="venue_name">' + v.name + '</span><br/><span class="venue_address">' + v.category + '</span> <span class="venue_distance">(' + v.distance + 'm)</span></li>';
 			$('#venues_list ul').empty().append(html);
+			$('li.venue').bind('click',function(){
+				$(this).addClass('selected');
+			});
 		})
 	}
 	geo = geo || soundscape.disrupt_geo;
@@ -143,8 +146,11 @@ soundscape.show.trending_venues = function(geo){
 		$('#venues_list ul').empty().append('<li class="loading">Loading Venues ...</li>');
 		var html = ''
 		$(venues).each(function(i,v){
-			html += '<li data-venue-id="' + v._id + '"><span class="venue_name">' + v.name + '</span><br/><span class="venue_address">' + v.category + '</span> <span class="venue_distance">(' + v.distance + 'm)</span></li>';
+			html += '<li class="venue" data-venue-id="' + v._id + '"><span class="venue_name">' + v.name + '</span><br/><span class="venue_address">' + v.category + '</span> <span class="venue_distance">(' + v.distance + 'm)</span></li>';
 			$('#venues_list ul').empty().append(html);
+			$('li.venue').bind('click',function(){
+				$(this).addClass('selected');
+			});
 		})
 	}
 	geo = geo || soundscape.disrupt_geo;
@@ -156,22 +162,27 @@ soundscape.show.thumbs_up = function(){
 	$('#tag_song').attr('class','').addClass('thumbs_up');
 	$('#venues_list').hide()
 	$('#tag_song').show()
-	var t = setTimeout('soundscape.show.song()',800);
+	var t = setTimeout('soundscape.show.song()',15000);
 }
 soundscape.show.thumbs_down = function(){
 	$('#subheading').attr('class','').addClass('tag_song');
 	$('#tag_song').attr('class','').addClass('thumbs_down');
 	$('#venues_list').hide()
 	$('#tag_song').show()
-	var t = setTimeout('soundscape.show.song()',800);
+	var t = setTimeout('soundscape.show.song("rick")',15000);
 }
 
-soundscape.show.song = function(){
+soundscape.show.song = function(rick){
 	$('#tag_song').show()
 	var show_song = function(song){
-		var html = '<li><span class="artist_name">' + song.artist + '</span><br /><span class="song_title">' + song.title + '</span></li>';
+		if(rick){
+			song = {"_id": "2222","artist":"Rick Astley","title":"Never Gonna Give You Up"}
+		}
+		var html = '<li class="song"><span class="artist_name">' + song.artist + '</span><br /><span class="song_title">' + song.title + '</span></li>';
 		$('#tag_song ul').empty().append(html);
-		
+		$('li.song').bind('click',function(){
+			$(this).addClass('selected');
+		});
 	}
 	soundscape.api.get_song(soundscape.billie,show_song)
 	
